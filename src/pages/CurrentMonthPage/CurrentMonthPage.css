@@ -1,0 +1,9 @@
+#chart-wrapper{
+    display: flex;
+    justify-content: space-around;
+}
+
+table, tr, th {
+    border-collapse: collapse;
+    border: 1px solid  var(--text-dark);
+}

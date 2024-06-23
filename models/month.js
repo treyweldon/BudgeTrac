@@ -64,6 +64,8 @@ const monthSchema = new Schema(
     }
 )
 
+monthSchema.index({ month: 1, year: 1, user: 1 }, { unique: true });
+
 monthSchema.virtual('totalExpenses').get(function(){
     if (this.expenses.length === 0){
         return 0;

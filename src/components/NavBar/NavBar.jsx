@@ -13,8 +13,6 @@ export default function NavBar({ user, setUser }) {
       &nbsp; | &nbsp;
       <Link to="/budget/history">Budget History</Link>
       &nbsp; | &nbsp;
-      <Link to="/budget/new">New Month</Link>
-      &nbsp; | &nbsp;
       <span>Welcome, {user.name}</span>
       &nbsp; | &nbsp;
       <Link to="" onClick={handleLogOut}>Log Out</Link>
