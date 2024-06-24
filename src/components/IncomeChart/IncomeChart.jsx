@@ -1,15 +1,18 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+// import { useEffect, useState } from 'react';
 
 export default function IncomeChart(){
 
-    // const [monthData, setMonthData] = useState(null); 
+    // const [monthData, setMonthData] = useState(null);
 
     // useEffect(() => {
     //     const fetchMonthData = async () => {
     //         try {
-    //             const response = await axios.get('/api/months'); 
-    //             setMonthData(response.data); 
+    //             const response = await fetch('/api/months');
+    //             if (!response.ok) {
+    //                 throw new Error('Failed to fetch data');
+    //             }
+    //             const data = await response.json();
+    //             setMonthData(data);
     //         } catch (error) {
     //             console.error('Error fetching month data:', error);
     //         }

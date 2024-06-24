@@ -1,10 +1,15 @@
 import { Link } from 'react-router-dom';
 import * as userService from '../../utilities/users-service';
+import displayAll from '../../utilities/months-api';
 
 export default function NavBar({ user, setUser }) {
   function handleLogOut() {
     userService.logOut();
     setUser(null);
+
+    const currentDate = new Date();
+    const currentMonth = currentDate.toLocaleString('default', { month: 'long' });
+    const currentYear = currentDate.getFullYear();
   }
 
   return (

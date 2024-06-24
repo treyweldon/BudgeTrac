@@ -15,7 +15,6 @@ export default function CurrentMonthPage({user}) {
   useEffect(() => {
     async function checkAndCreateMonthInstance() {
       try {
-        console.log("Create MONTH PAGE")
         const response = await fetch('/api/months/new', {
           method: 'POST',
           headers: {
@@ -23,16 +22,17 @@ export default function CurrentMonthPage({user}) {
           },
           body: JSON.stringify({ month: currentMonth, year: currentYear, user: user }),
         });
-
+  
         if (response.ok) {
           console.log('Month instance created/checked successfully');
         } else {
-          console.error('Failed to create/check month instance');
+          console.error('Failed to create/check month instance:', response.status);
         }
       } catch (error) {
         console.error('Error while creating/checking month instance:', error);
       }
     }
+  
     checkAndCreateMonthInstance();
   }, [currentMonth, currentYear, user]);
 
