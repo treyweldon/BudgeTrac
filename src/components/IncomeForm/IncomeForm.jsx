@@ -13,13 +13,21 @@ export default function IncomeForm(user){
     setNewIncome({...newIncome, [e.target.name]: e.target.value})
   }
 
-  async function addIncome(income) {
-    await createIncome(income)    
+  async function addIncome(newIncome) {
+    await createIncome(newIncome)    
   }
 
-  const handleSubmit = (e) => {
+  async function handleSubmit (e) {
     e.preventDefault()
-    addIncome()
+    try {
+      await addIncome(newIncome);
+      setNewIncome({
+          category: '',
+          amount: ''
+      });
+  } catch (error) {
+      console.error("Error adding income:", error);
+  }
   }
 
     return (
@@ -30,7 +38,7 @@ export default function IncomeForm(user){
         <label>Select category of your income:</label>
           <br />
             <select name='category' value={newIncome.category} onChange={handleChange}>
-              <option value="Select Category" selected disabled>Select category</option>
+              <option value="Select Category"  disabled>Select category</option>
               <option value={"Business Earnings / Profits"}>Business Earnings / Profits</option>
               <option value={"Commisions / Tips"}>Commisions / Tips</option>
               <option value={"Gift"}>Gift</option>

@@ -41,43 +41,64 @@ async function getMonth(req, res)  {
       };
 }
 
-async function createIncome(){
+async function createIncome(req, res) {
     const currentDate = new Date();
     const currentMonth = currentDate.toLocaleString('default', { month: 'long' });
     const currentYear = currentDate.getFullYear();
-    const monthYear = `${currentMonth}, ${currentYear}`
+
     try {
-        const month = await Month.findOne(monthYear)
+        let month = await Month.findOne({ month: currentMonth, year: currentYear });
+
+        if (!month) {
+            month = new Month({
+                month: currentMonth,
+                year: currentYear,
+                income: [] 
+            });
+        }
+
         const incomeData = {
             category: req.body.category,
             amount: req.body.amount
-        }
-        const income = await Month.create(incomeData)
-        month.income.push(income)
-        await month.save()
-        json(income)
+        };
+
+        month.income.push(incomeData); 
+        await month.save(); 
+
+        res.json(incomeData); 
     } catch (error) {
-        console.log("Error adding income:", error)
+        console.log("Error adding income:", error);
+        res.status(500).json({ error: 'Failed to add income' });
     }
 }
 
-async function createExpense(){
+async function createExpense(req, res) {
     const currentDate = new Date();
     const currentMonth = currentDate.toLocaleString('default', { month: 'long' });
     const currentYear = currentDate.getFullYear();
-    const monthYear = `${currentMonth}, ${currentYear}`
 
     try {
-        const month = await Month.findOne(monthYear)
-        const expenseData = {
+        let month = await Month.findOne({ month: currentMonth, year: currentYear });
+
+        if (!month) {
+            month = new Month({
+                month: currentMonth,
+                year: currentYear,
+                expenses: [] 
+            });
+        }
+
+        const expensesData = {
             category: req.body.category,
             amount: req.body.amount
-        }
-        const expense = await Month.create(expenseData)
-        month.expense.push(expense)
-        await month.save()
-        json(expense)
+        };
+
+        month.income.push(expensesDataData); 
+        await month.save(); 
+
+        res.json(expensesData); 
     } catch (error) {
-        console.log("Error adding expense:", error)
+        console.log("Error adding expense:", error);
+        res.status(500).json({ error: 'Failed to add expense' });
     }
 }

@@ -20,9 +20,9 @@ export async function currentMonthExpenses(month){
 
 export async function createExpense(expense) {
     return sendRequest(`${BASE_URL}/createExpense`, "POST", expense);
-  }
+}
 
-  export async function createIncome(income) {
-    return sendRequest(`${BASE_URL}/createIncome`, "POST", income);
-  }
+export async function createIncome(newIncome) {
+    return sendRequest(`${BASE_URL}/createIncome`, "POST", newIncome);
+}
     
