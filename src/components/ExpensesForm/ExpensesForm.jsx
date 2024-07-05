@@ -1,16 +1,40 @@
-
+import { createExpense } from "../../utilities/months-api"
+import { useState } from 'react'
 
 export default function ExpensesForm(){
+  const [newExpense, setNewExpense] = useState({
+    category: '',
+    amount: ''
+  })
+
+  function handleChange(e){
+    setNewExpense({...newExpense, [e.target.name]: e.target.value})
+  }
+
+  async function addExpense(newExpense) {
+    await createExpense(newExpense)    
+  }
+
+  async function handleSubmit (e) {
+    e.preventDefault()
+    try {
+      await addExpense(newExpense);
+      setNewExpense({
+          category: '',
+          amount: ''
+      });
+  } catch (error) {
+      console.error("Error adding Expense:", error);
+  }
+  }
     return (
         <>
         <h3>New Expense</h3>
-        <form action="POST">
+        <form  onSubmit={handleSubmit}>
 
         <label>Select category of your expense:</label>
           <br />
-            <select name='category'
-            //  value={newExpense.category} onChange={handleChange}
-             >
+            <select name='category' value={newExpense.category} onChange={handleChange}>
               <option disabled>Select category</option>
               <option value={"Auto Insurance"}>Auto Insurance</option>
               <option value={"Auto Repairs"}>Auto Repairs</option>
@@ -43,7 +67,7 @@ export default function ExpensesForm(){
               <option value={"Utilities"}>Utilities</option>
               <option value={"Other"}>Other</option>
             </select>
-            <input type="number" min="0" name="expenseAmount" id="" />
+            <input type="number" min="0" name="amount" value={newExpense.amount}  onChange={handleChange} />
             <button>Add Expense</button>
         </form>
         </>

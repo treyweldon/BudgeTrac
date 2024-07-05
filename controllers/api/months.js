@@ -47,7 +47,7 @@ async function createIncome(req, res) {
     const currentYear = currentDate.getFullYear();
 
     try {
-        let month = await Month.findOne({ month: currentMonth, year: currentYear });
+        let month = await Month.findOne({ month: currentMonth, year: currentYear});
 
         if (!month) {
             month = new Month({
@@ -93,7 +93,7 @@ async function createExpense(req, res) {
             amount: req.body.amount
         };
 
-        month.income.push(expensesDataData); 
+        month.expenses.push(expensesData); 
         await month.save(); 
 
         res.json(expensesData); 

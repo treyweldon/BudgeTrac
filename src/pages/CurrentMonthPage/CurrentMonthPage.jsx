@@ -16,11 +16,6 @@ export default function CurrentMonthPage({user}) {
   useEffect(() => {
     async function checkAndCreateMonthInstance() {
       try {
-        const response = await fetch(`/api/months`);
-        if (response.ok) {
-          return;
-        }
-  
         const createResponse = await fetch('/api/months/new', {
           method: 'POST',
           headers: {
