@@ -1,3 +1,4 @@
+import { React } from 'react'
 import "./CurrentMonthPage.css"
 import { useEffect } from 'react';
 import ExpensesForm from '../../components/ExpensesForm/ExpensesForm';
@@ -15,18 +16,23 @@ export default function CurrentMonthPage({user}) {
   useEffect(() => {
     async function checkAndCreateMonthInstance() {
       try {
-        const response = await fetch('/api/months/new', {
+        const response = await fetch(`/api/months`);
+        if (response.ok) {
+          return;
+        }
+  
+        const createResponse = await fetch('/api/months/new', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({ month: currentMonth, year: currentYear, user: user }),
         });
-  
-        if (response.ok) {
-          console.log('Month instance created/checked successfully');
+    
+        if (createResponse.ok) {
+          console.log('Month instance created successfully');
         } else {
-          console.error('Failed to create/check month instance:', response.status);
+          console.error('Failed to create month instance:', createResponse.status);
         }
       } catch (error) {
         console.error('Error while creating/checking month instance:', error);
@@ -39,13 +45,13 @@ export default function CurrentMonthPage({user}) {
     return (
       <>
         <h1>{currentMonth} {currentYear}</h1>
+        <div id="form-wrapper">
+        <ExpensesForm user={user}/>
+        <IncomeForm  user={user}/>
+        </div>
         <div id="chart-wrapper">
         <ExpensesChart />
         <IncomeChart />
-        </div>
-        <div id="form-wrapper">
-        <ExpensesForm />
-        <IncomeForm />
         </div>
       </>
     );

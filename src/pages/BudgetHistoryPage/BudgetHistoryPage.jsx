@@ -1,5 +1,7 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import { displayAll } from "../../utilities/months-api";
+import { Link } from "react-router-dom";
 
 
 export default function BudgetHistoryPage() {
@@ -18,11 +20,22 @@ export default function BudgetHistoryPage() {
   }, []);
 
   return (
-    <>
-      <h1>Budget History</h1>
-      {months.map((month, index) => (
-        <p key={index}>{month.month} {month.year}</p>
-      ))}
-    </>
+<>
+  <h1>Budget History</h1>
+  {months.length > 0 ? (
+    months.map((month, index) => (
+      <React.Fragment key={index + 1}>
+        {index < months.length - 1 ? ( 
+          <>
+            <Link to={`/${month.month}/${month.year}`}>{month.month} {month.year}</Link>
+          </>
+        ) : null}
+      </React.Fragment>
+    ))
+  ) : (
+    <p>none</p>
+  )}
+</>
+
   );
 }

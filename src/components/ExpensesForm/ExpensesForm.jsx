@@ -4,14 +4,14 @@ export default function ExpensesForm(){
     return (
         <>
         <h3>New Expense</h3>
-        <form action="">
+        <form action="POST">
 
         <label>Select category of your expense:</label>
           <br />
             <select name='category'
             //  value={newExpense.category} onChange={handleChange}
              >
-              <option value="" disabled selected>Select category</option>
+              <option disabled>Select category</option>
               <option value={"Auto Insurance"}>Auto Insurance</option>
               <option value={"Auto Repairs"}>Auto Repairs</option>
               <option value={"Clothing"}>Clothing</option>
