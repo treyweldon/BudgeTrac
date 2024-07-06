@@ -25,9 +25,11 @@ export default function BudgetHistoryPage() {
   {months.length > 0 ? (
     months.map((month, index) => (
       <React.Fragment key={index + 1}>
-        {index < months.length - 1 ? ( 
+        {index < months.length ? ( 
           <>
             <Link to={`/${month.month}/${month.year}`}>{month.month} {month.year}</Link>
+            <br />          
+            <br />          
           </>
         ) : null}
       </React.Fragment>

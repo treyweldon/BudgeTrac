@@ -5,7 +5,9 @@ module.exports = {
     create,
     getMonth,
     createIncome,
-    createExpense
+    createExpense,
+    getCurrentIncome,
+    getCurrentExpenses
 }
 
 async function create(req, res){
@@ -100,5 +102,48 @@ async function createExpense(req, res) {
     } catch (error) {
         console.log("Error adding expense:", error);
         res.status(500).json({ error: 'Failed to add expense' });
+    }
+}
+
+async function getCurrentIncome(req, res) {
+    const currentDate = new Date();
+    const currentMonth = currentDate.toLocaleString('default', { month: 'long' });
+    const currentYear = currentDate.getFullYear();
+
+    try {
+        const currentMonthData = await Month.findOne({ month: currentMonth, year: currentYear });
+        if (!currentMonthData) {
+            return res.status(404).json({ message: "No data found for current month" });
+        }
+        res.json(currentMonthData.income); // Assuming income is stored directly under the month document
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server error" });
+    }
+}
+
+// async function getCurrentIncome (req, res) {
+//     const currentDate = new Date();
+//     const currentMonth = currentDate.toLocaleString('default', { month: 'long' });
+//     const currentYear = currentDate.getFullYear();
+
+//     try {
+//         let currentMonthData = await Month.findOne({ month: currentMonth, year: currentYear });
+//         res.json(currentMonthData.map((month) => month.income))
+//     } catch (error) {
+//         console.log(error)
+//     }
+// }
+
+async function getCurrentExpenses (req, res) {
+    const currentDate = new Date();
+    const currentMonth = currentDate.toLocaleString('default', { month: 'long' });
+    const currentYear = currentDate.getFullYear();
+
+    try {
+        let currentMonthData = await Month.findOne({ month: currentMonth, year: currentYear });
+        res.json(currentMonthData.map((month) => month.expenses))
+    } catch (error) {
+        console.log(error)
     }
 }

@@ -41,12 +41,12 @@ export default function CurrentMonthPage({user}) {
       <>
         <h1>{currentMonth} {currentYear}</h1>
         <div id="form-wrapper">
-        <ExpensesForm user={user}/>
         <IncomeForm  user={user}/>
+        <ExpensesForm user={user}/>
         </div>
         <div id="chart-wrapper">
-        <ExpensesChart />
         <IncomeChart />
+        <ExpensesChart />
         </div>
       </>
     );
