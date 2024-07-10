@@ -7,7 +7,7 @@ import IncomeForm from '../../components/IncomeForm/IncomeForm';
 import IncomeChart from '../../components/IncomeChart/IncomeChart';
 
 
-export default function CurrentMonthPage({user}) {
+export default function CurrentMonthPage({user, months}) {
 
   const currentDate = new Date();
   const currentMonth = currentDate.toLocaleString('default', { month: 'long' });
@@ -41,12 +41,12 @@ export default function CurrentMonthPage({user}) {
       <>
         <h1>{currentMonth} {currentYear}</h1>
         <div id="form-wrapper">
-        <IncomeForm  user={user}/>
-        <ExpensesForm user={user}/>
+        <IncomeForm/>
+        <ExpensesForm/>
         </div>
         <div id="chart-wrapper">
-        <IncomeChart />
-        <ExpensesChart />
+        <IncomeChart user={user} months={months} currentMonth={currentMonth} currentYear={currentYear} />
+        <ExpensesChart user={user} months={months} currentMonth={currentMonth} currentYear={currentYear} />
         </div>
       </>
     );

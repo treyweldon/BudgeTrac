@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { getUser } from '../../utilities/users-service';
-import { index } from "../../utilities/months-api"
+import { displayAll } from "../../utilities/months-api";
 import './App.css';
 import AuthPage from '../AuthPage/AuthPage';
 import CurrentMonthPage from '../CurrentMonthPage/CurrentMonthPage';
@@ -12,19 +12,19 @@ import MonthDetail from '../MonthDetail/MonthDetail';
 
 export default function App() {
   const [user, setUser] = useState(getUser());
-  const [allMonths, setAllMonths] = useState([])
+  const [months, setMonths] = useState([]);
 
   useEffect(() => {
-    async function getAllMonths() {
+    async function getMonths() {
       try {
-        const allMonths = await index();
-        setAllMonths(allMonths)
+        const months = await displayAll();
+        setMonths(months);
       } catch (error) {
-        console.log(error)
+        console.log("Error fetching months:", error);
       }
     }
-    getAllMonths()
-  }, [])
+    getMonths();
+  }, []);
 
 
   return (
@@ -33,9 +33,9 @@ export default function App() {
           <>
             <NavBar user={user} setUser={setUser} />
             <Routes>
-              <Route path="/budget" element={<CurrentMonthPage user={user} setUser={setUser} />} />
-              <Route path="/budget/history" element={<BudgetHistoryPage user={user} setUser={setUser} />} />
-              <Route exact path='/:month/:year' element={<MonthDetail/>} />
+              <Route path="/budget" element={<CurrentMonthPage user={user} setUser={setUser} months={months}/>} />
+              <Route path="/budget/history" element={<BudgetHistoryPage user={user} setUser={setUser} months={months}/>} />
+              <Route exact path='/:id' element={<MonthDetail months={months}/>} />
             </Routes>
           </>
           :
