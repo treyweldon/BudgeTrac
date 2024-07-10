@@ -10,6 +10,10 @@ export async function displayAll() {
 //     return sendRequest(`${BASE_URL}/data`)
 // }
 
+export async function index() {
+    return sendRequest(`${BASE_URL}/all`)
+}
+
 export async function displayCurrent() {
     return sendRequest(`${BASE_URL}/current`)
 }

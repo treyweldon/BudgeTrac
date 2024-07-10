@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { getUser } from '../../utilities/users-service';
+import { index } from "../../utilities/months-api"
 import './App.css';
 import AuthPage from '../AuthPage/AuthPage';
 import CurrentMonthPage from '../CurrentMonthPage/CurrentMonthPage';
@@ -11,6 +12,20 @@ import MonthDetail from '../MonthDetail/MonthDetail';
 
 export default function App() {
   const [user, setUser] = useState(getUser());
+  const [allMonths, setAllMonths] = useState([])
+
+  useEffect(() => {
+    async function getAllMonths() {
+      try {
+        const allMonths = await index();
+        setAllMonths(allMonths)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    getAllMonths()
+  }, [])
+
 
   return (
     <main className="App">
