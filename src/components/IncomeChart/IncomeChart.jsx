@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function IncomeChart({ months, currentMonth, currentYear }) {
+export default function IncomeChart({ months, currentMonth, currentYear, addedIncome }) {
   const month = months.find(
     (m) => m.month === currentMonth 
     // && m.year === currentYear

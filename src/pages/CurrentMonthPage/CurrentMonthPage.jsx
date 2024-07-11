@@ -1,6 +1,5 @@
-import { React } from 'react'
+import { React, useEffect, useState } from 'react'
 import "./CurrentMonthPage.css"
-import { useEffect } from 'react';
 import ExpensesForm from '../../components/ExpensesForm/ExpensesForm';
 import ExpensesChart from '../../components/ExpensesChart/ExpensesChart';
 import IncomeForm from '../../components/IncomeForm/IncomeForm';
@@ -8,6 +7,8 @@ import IncomeChart from '../../components/IncomeChart/IncomeChart';
 
 
 export default function CurrentMonthPage({user, months}) {
+  const [addedIncome, setAddedIncome] = useState();
+  const [addedExpense, setAddedExpense] = useState();
 
   const currentDate = new Date();
   const currentMonth = currentDate.toLocaleString('default', { month: 'long' });
@@ -46,14 +47,16 @@ export default function CurrentMonthPage({user, months}) {
       <>
         <h1>{currentMonth} {currentYear}</h1>
         <div id="form-wrapper">
-        <IncomeForm/>
-        <ExpensesForm/>
+        <IncomeForm addedIncome={addedIncome} setAddedIncome={setAddedIncome} />
+        <ExpensesForm addedExpense={addedExpense} setAddedExpense={setAddedExpense} />
         </div>
         {/* <h2>Budget Status</h2>
       <span>{month.budgetStatus}</span> */}
         <div id="chart-wrapper">
-        <IncomeChart user={user} months={months} currentMonth={currentMonth} currentYear={currentYear} />
-        <ExpensesChart user={user} months={months} currentMonth={currentMonth} currentYear={currentYear} />
+        <IncomeChart user={user} months={months} currentMonth={currentMonth} currentYear={currentYear} 
+         addedIncome={addedIncome} />
+        <ExpensesChart user={user} months={months} currentMonth={currentMonth} currentYear={currentYear} 
+         addedExpense={addedExpense} />
         </div>
       </>
     );

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function ExpensesChart({months, currentMonth, currentYear}) {
+export default function ExpensesChart({months, currentMonth, currentYear, addedExpense}) {
     const month = months.find(
         (m) => m.month === currentMonth 
         // && m.year === currentYear
