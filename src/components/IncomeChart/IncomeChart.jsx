@@ -2,7 +2,8 @@ import React from "react";
 
 export default function IncomeChart({ months, currentMonth, currentYear }) {
   const month = months.find(
-    (m) => m.month === currentMonth && m.year === currentYear
+    (m) => m.month === currentMonth 
+    // && m.year === currentYear
   );
 
   if (!month) {
@@ -21,6 +22,9 @@ export default function IncomeChart({ months, currentMonth, currentYear }) {
 
   const incomeByCategory = sumByCategory(month.income || []);
 
+  const sortedIncomeByCategory = Object.entries(incomeByCategory)
+    .sort((a, b) => b[1] - a[1]);
+
   return (
     <div>
       <h2>Income Summary</h2>
@@ -33,8 +37,8 @@ export default function IncomeChart({ months, currentMonth, currentYear }) {
           </tr>
         </thead>
         <tbody>
-          {Object.keys(incomeByCategory).length > 0 ? (
-            Object.entries(incomeByCategory).map(([category, amount], index) => (
+          {sortedIncomeByCategory.length > 0 ? (
+            sortedIncomeByCategory.map(([category, amount], index) => (
               <tr key={index}>
                 <td>{category}</td>
                 <td>${amount}</td>
@@ -48,48 +52,24 @@ export default function IncomeChart({ months, currentMonth, currentYear }) {
               <td colSpan="3">No income recorded</td>
             </tr>
           )}
+          <tr>
+            <td><strong>Total</strong></td>
+            <td colSpan="2"><strong>${month.totalIncome}</strong></td>
+          </tr>
         </tbody>
       </table>
 
-      <h2>Income Instances</h2>
-      <ul>
-        {month.income && month.income.length > 0 ? (
-          month.income.map((income, incomeIndex) => (
-            <li key={incomeIndex}>
-              {income.category}: ${income.amount}
-            </li>
-          ))
-        ) : (
-          <li>No income recorded</li>
-        )}
-      </ul>
+      <h2>Income List</h2>
+      {month.income && month.income.length > 0 ? (
+        month.income.map((income, incomeIndex) => (
+          <span key={incomeIndex}>
+            {income.category}: ${income.amount}
+            <br />
+          </span>
+        ))
+      ) : (
+        <span>No income recorded</span>
+      )}
     </div>
   );
 }
-
-
-// export default function IncomeChart({months, currentMonth, currentYear}) {
-
-//     return (
-//         <div>
-//             <h2>Income Summary</h2>
-//             <table>
-//                 <thead>
-//                     <tr>
-//                         <th>Category</th>
-//                         <th>Amount</th>
-//                         <th>Percent of Total</th>
-//                     </tr>
-//                 </thead>
-//                 <tbody>
-//                     {/* {incomeData.map((item, index) => (
-//                         <tr key={index}>
-//                             <td>{item.category}</td>
-//                             <td>${item.amount}</td>
-//                         </tr>
-//                     ))} */}
-//                 </tbody>
-//             </table>
-//         </div>
-//     );
-// }

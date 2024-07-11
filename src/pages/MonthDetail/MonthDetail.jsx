@@ -28,31 +28,33 @@ export default function MonthDetail({ months }) {
       <h2>Budget Status</h2>
       <span>{month.budgetStatus}</span>
       <h2>Income</h2>
-      <ul>
+      
         {Object.keys(incomeByCategory).length > 0 ? (
           Object.entries(incomeByCategory).map(([category, amount], index) => (
-            <li key={index}>
+            <span key={index}>
               {category}: ${amount} - {((amount / month.totalIncome) * 100).toFixed(1)}% of total
-            </li>
+              <br />
+            </span>
           ))
         ) : (
-          <li>No income recorded</li>
+          <span>No income recorded</span>
         )}
-        <li><strong>Total Income: ${month.totalIncome}</strong></li>
-      </ul>
+        <br />
+        <span><strong>Total Income: ${month.totalIncome}</strong></span>
+      
       <h2>Expenses</h2>
-      <ul>
         {Object.keys(expensesByCategory).length > 0 ? (
           Object.entries(expensesByCategory).map(([category, amount], index) => (
-            <li key={index}>
+            <span key={index}>
               {category}: ${amount} - {((amount / month.totalExpenses) * 100).toFixed(1)}% of total
-            </li>
+              <br />
+            </span>
           ))
         ) : (
-          <li>No expenses recorded</li>
+          <span>No expenses recorded</span>
         )}
-        <li><strong>Total Expenses: ${month.totalExpenses}</strong></li>
-      </ul>
+        <br />
+        <span><strong>Total Expenses: ${month.totalExpenses}</strong></span>
     </>
   );
 }

@@ -37,6 +37,11 @@ export default function CurrentMonthPage({user, months}) {
     checkAndCreateMonthInstance();
   }, [currentMonth, currentYear, user]);
 
+  // const month = months.find(
+  //   (m) => m.month === currentMonth 
+  //   // && m.year === currentYear
+  // );
+
     return (
       <>
         <h1>{currentMonth} {currentYear}</h1>
@@ -44,6 +49,8 @@ export default function CurrentMonthPage({user, months}) {
         <IncomeForm/>
         <ExpensesForm/>
         </div>
+        {/* <h2>Budget Status</h2>
+      <span>{month.budgetStatus}</span> */}
         <div id="chart-wrapper">
         <IncomeChart user={user} months={months} currentMonth={currentMonth} currentYear={currentYear} />
         <ExpensesChart user={user} months={months} currentMonth={currentMonth} currentYear={currentYear} />
